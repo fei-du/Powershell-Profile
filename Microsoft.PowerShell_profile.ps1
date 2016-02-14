@@ -109,7 +109,7 @@ Set-Alias -Name ls -Value PowerLS -Option AllScope
 new-alias gh get-help
 new-alias psd pushd
 new-alias ppd popd
-
+New-Alias wheres Compare-Property
 
 $env:Path += ";C:\Program Files (x86)\Google\Chrome\Application"
 $env:Path += ";C:\Program Files\Internet Explorer"
