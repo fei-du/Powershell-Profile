@@ -3,6 +3,10 @@ function set-profile {
     ise $profile
 }
 
+function cpass6ull{
+start 'http://compass.freescale.net/livelink/livelink?func=ll&objId=234616371&objAction=browse&viewType=1'
+}
+
 function ip {
 	ipconfig | select-string "Address"	
 }
@@ -18,6 +22,24 @@ function ie{
 }
 function ..{
     cd ..
+}
+function birthday{
+[datetime]'06/03/2016' - (Get-Date)
+}
+
+function google($search) {
+start "https://www.google.com/#q=$search"
+}
+
+function youtube($search) {
+start "https://www.youtube.com/results?search_query=$search"
+}
+
+function baidu($search){
+start "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=$search&rsv_pq=dd3d27a9005ae8b1&rsv_t=b3c43wiJzwoT02u%2Fo%2FB0RgW7Yn0nGHXqzcW35zirhzf6dYUH8e6tTwFQ4JY&rsv_enter=1&rsv_sug3=7&rsv_sug1=4&rsv_sug7=100"
+}
+function bing($search){
+"http://cn.bing.com/search?q=$search&go=Submit&qs=n&form=QBLH&pq=svn&sc=8-3&sp=-1&sk=&cvid=6241CF63D8FE4E5B96CFC198F441AC4E"
 }
 
 function cv {
@@ -114,11 +136,12 @@ New-Alias wheres Compare-Property
 $env:Path += ";C:\Program Files (x86)\Google\Chrome\Application"
 $env:Path += ";C:\Program Files\Internet Explorer"
 $env:Path += ";C:\Program Files\R\R-3.2.3\bin\x64\"
+$env:Path += "C:\Users\b41395\Downloads\WindowsTrans"
 #$env:Path += ";C:\Program Files\LeostreamConnect\"
 #$env:Path += ";C:\Program Files (x86)\Tencent\WeChat\"
 #$env:Path += ";C:\Program Files (x86)\Vim\vim74\"
 Enable-HistoryPersistence
-
+New-DynamicVariable GLOBAL:WindowTitle -Getter { $host.UI.RawUI.WindowTitle} -Setter {$host.ui.RawUI.WindowTitle = $args[0]}
 # Load posh-git example profile
 . 'C:\Users\b41395\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1'
 
