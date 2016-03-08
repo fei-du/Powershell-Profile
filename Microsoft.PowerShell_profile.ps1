@@ -35,6 +35,10 @@ function youtube($search) {
 start "https://www.youtube.com/results?search_query=$search"
 }
 
+function stackoverflow($search) {
+start "http://stackoverflow.com/search?q=$search"
+}
+
 function baidu($search){
 start "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=$search&rsv_pq=dd3d27a9005ae8b1&rsv_t=b3c43wiJzwoT02u%2Fo%2FB0RgW7Yn0nGHXqzcW35zirhzf6dYUH8e6tTwFQ4JY&rsv_enter=1&rsv_sug3=7&rsv_sug1=4&rsv_sug7=100"
 }
