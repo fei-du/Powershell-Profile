@@ -46,6 +46,16 @@ function bing($search){
 "http://cn.bing.com/search?q=$search&go=Submit&qs=n&form=QBLH&pq=svn&sc=8-3&sp=-1&sk=&cvid=6241CF63D8FE4E5B96CFC198F441AC4E"
 }
 
+function sdhc-write($transid){
+    Set-Location C:\Users\b41395\Downloads\WindowsTrans\repo
+    mv .\u-boot.imx ([string](Get-Date).Ticks + "u-boot.imx")
+    ..\trans.exe -g $transid
+    if ((Get-PSDrive e -ErrorAction Stop).free -lt 0) {
+    ..\CFImager.exe -raw -offset 0x400 -f .\u-boot.imx -d E -n
+    }
+}
+
+
 function cv {
  convert-path . | cb	
 }
