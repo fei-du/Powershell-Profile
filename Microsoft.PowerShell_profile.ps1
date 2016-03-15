@@ -7,8 +7,15 @@ function cpass6ull{
 start 'http://compass.freescale.net/livelink/livelink?func=ll&objId=234616371&objAction=browse&viewType=1'
 }
 
+function compassultra{
+ start 'http://compass.freescale.net/livelink/livelink?func=ll&objId=234218038&objAction=browse&sort=name'
+}
 function ip {
 	ipconfig | select-string "Address"	
+}
+
+function get-trans($transid){
+C:\Users\b41395\Downloads\WindowsTrans\trans.exe -g $transid
 }
 function mt256 {
     Set-Location C:\Users\b41395\D\Denny\BACES\Project\MT256
@@ -48,13 +55,27 @@ function bing($search){
 
 function sdhc-write($transid){
     Set-Location C:\Users\b41395\Downloads\WindowsTrans\repo
-    mv .\u-boot.imx ([string](Get-Date).Ticks + "u-boot.imx")
-    ..\trans.exe -g $transid
+    if ([string]$transid.length -eq 9){
+        mv .\u-boot.imx ([string](Get-Date).Ticks + "u-boot.imx")
+        ..\trans.exe -g $transid
+        }
     if ((Get-PSDrive e -ErrorAction Stop).free -lt 0) {
     ..\CFImager.exe -raw -offset 0x400 -f .\u-boot.imx -d E -n
     }
 }
 
+function app-write{
+Push-Location
+Set-Location C:\Users\b41395\Downloads\WindowsTrans\repo
+    if ((Get-PSDrive e -ErrorAction Stop).free -lt 0) {
+    ..\CFImager.exe -raw -offset 0x400 -f (Get-ChildItem *bin | sort -Descending | Select-Object -First 1).fullname -d E -n
+    }
+Pop-Location
+}
+
+function get-com5{
+C:\Users\b41395\Downloads\putty.exe -new_console:s -load "COM5"
+}
 
 function cv {
  convert-path . | cb	
@@ -115,7 +136,7 @@ function GetSet-Clipboard {
 Set-Alias cb GetSet-Clipboard
 Set-Alias -Name ls -Value PowerLS -Option AllScope
 #Export-ModuleMember -Function *-* -Alias *
-
+set-alias sz "$env:ProgramFiles\7-Zip\7z.exe"
 
 
 #New-PSDrive -Name kl80 -PSProvider FileSystem -Root "C:\Users\b41395\D\Denny\BACES\Project\K80_256\IDD\KL80" | Out-Null
@@ -150,7 +171,7 @@ New-Alias wheres Compare-Property
 $env:Path += ";C:\Program Files (x86)\Google\Chrome\Application"
 $env:Path += ";C:\Program Files\Internet Explorer"
 $env:Path += ";C:\Program Files\R\R-3.2.3\bin\x64\"
-$env:Path += "C:\Users\b41395\Downloads\WindowsTrans"
+$env:Path += "C:\Program Files\7-Zip"
 #$env:Path += ";C:\Program Files\LeostreamConnect\"
 #$env:Path += ";C:\Program Files (x86)\Tencent\WeChat\"
 #$env:Path += ";C:\Program Files (x86)\Vim\vim74\"
