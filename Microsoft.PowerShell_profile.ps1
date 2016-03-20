@@ -76,6 +76,8 @@ Pop-Location
 function get-com5{
 C:\Users\b41395\Downloads\putty.exe -new_console:s -load "COM5"
 }
+# using autohotkey to speed up
+C:\Users\b41395\Documents\WindowsPowerShell\autohotkey.ahk
 
 function cv {
  convert-path . | cb	
