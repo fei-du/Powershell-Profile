@@ -14,6 +14,7 @@ return
 ::wapp::write-app
 ::wubt::sdhc-write
 ::@wy::wanyuan.yu@nxp.com
+::@df::fei.du@nxp.com
 ::tjnpe::TJN PE Weekly ww1016 DF JJ
 ::@team::Jianguang Cao <jianguang.cao@nxp.com>; Le Chang <le.chang@nxp.com>; Xin Cui <xin.cui@nxp.com>; Haifeng Hu <haifeng.hu@nxp.com>; Pengyan Li <pengyan.li@nxp.com>; Wen Li <winnie.li@nxp.com>; Zheyuan Liu <zheyuan.liu@nxp.com>; Bin Lu <bin.lu@nxp.com>; Kan Liu <kan.liu@nxp.com>; Ken Song <ken.song@nxp.com>; Siliang Wang <siliang.wang@nxp.com>; Zhicheng Wang <zhicheng.wang@nxp.com>; Li Jiang Wu <lijiang.wu@nxp.com>; Yunpeng Xu <yunpeng.xu@nxp.com>; Wanyuan Yu <wanyuan.yu@nxp.com>; Hongxu Zhang <hongxu.zhang@nxp.com>; Rixing Zhao <rixing.zhao@nxp.com>; Bin Wang <bin.wang@nxp.com>
 OnClipboardChange:

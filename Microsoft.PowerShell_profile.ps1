@@ -64,13 +64,21 @@ function sdhc-write($transid){
     }
 }
 
-function app-write{
+function write-app{
 Push-Location
 Set-Location C:\Users\b41395\Downloads\WindowsTrans\repo
     if ((Get-PSDrive e -ErrorAction Stop).free -lt 0) {
     ..\CFImager.exe -raw -offset 0x400 -f (Get-ChildItem *bin | sort -Descending | Select-Object -First 1).fullname -d E -n
     }
 Pop-Location
+}
+
+function start-app{
+    C:\Users\b41395\Downloads\WindowsTrans\repo\i.MX6UL_Validation.exe
+}
+
+function stop-app{
+    Get-Process i.MX6UL_Validation -ErrorAction SilentlyContinue| Stop-Process
 }
 
 function get-com5{
