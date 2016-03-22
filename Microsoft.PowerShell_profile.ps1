@@ -79,7 +79,10 @@ Pop-Location
 }
 
 function start-app{
+Push-Location
+Set-Location C:\Users\b41395\Downloads\WindowsTrans\repo
     C:\Users\b41395\Downloads\WindowsTrans\repo\i.MX6UL_Validation.exe
+Pop-Location
 }
 
 function stop-app{
