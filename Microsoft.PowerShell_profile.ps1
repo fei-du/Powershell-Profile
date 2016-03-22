@@ -7,6 +7,10 @@ function cpass6ull{
 start 'http://compass.freescale.net/livelink/livelink?func=ll&objId=234616371&objAction=browse&viewType=1'
 }
 
+function mad{
+start 'http://compass.freescale.net/livelink/livelink?func=ll&objId=194994268&objAction=browse&sort=name'
+}
+
 function compassultra{
  start 'http://compass.freescale.net/livelink/livelink?func=ll&objId=234218038&objAction=browse&sort=name'
 }
@@ -68,6 +72,7 @@ function write-app{
 Push-Location
 Set-Location C:\Users\b41395\Downloads\WindowsTrans\repo
     if ((Get-PSDrive e -ErrorAction Stop).free -lt 0) {
+    Write-Host (Get-ChildItem *bin | sort -Descending | Select-Object -First 1).name
     ..\CFImager.exe -raw -offset 0x400 -f (Get-ChildItem *bin | sort -Descending | Select-Object -First 1).fullname -d E -n
     }
 Pop-Location
