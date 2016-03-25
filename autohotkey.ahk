@@ -1,6 +1,6 @@
 #Persistent
 #SingleInstance force
-^m::Send, Wxdf201611
+^m::Send, Wxdf201611{Enter}
 #n::Run, Notepad
 
 #t::Run, C:\Users\b41395\Documents\ConEmuPack.160111\ConEmu64.exe
