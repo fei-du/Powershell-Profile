@@ -95,63 +95,11 @@ C:\Users\b41395\Downloads\putty.exe -new_console:s -load "COM5"
 # using autohotkey to speed up
 C:\Users\b41395\Documents\WindowsPowerShell\autohotkey.ahk
 
-function cv {
- convert-path . | cb	
-}
-function ll{
-$size = @{Expression={ [int]($_.Length/1KB) }; Label="KB" }
-$lastAccessed = @{Expression={(New-TimeSpan $_.Lastaccesstime (Get-Date)).Days}; Label="Accessed(days)" }
-$lastcreated = @{Expression={(New-TimeSpan $_.creationtime (Get-Date)).Days}; Label="Created(days)" }
-dir | Format-Table mode,$size,$lastAccessed,$lastcreated, name  -AutoSize
-}
-function ex {
-    explorer.exe .
-}
+
 
 Add-Type -AssemblyName System.Windows.Forms
 
-Function Get-Clipboard {
-	    param([switch]$SplitLines)
 
-	        $text = [Windows.Forms.Clipboard]::GetText();
-
-		    if ($SplitLines) {
-			            $xs = $text -split [Environment]::NewLine
-				            if ($xs.Length -gt 1 -and -not($xs[-1])) {
-						                $xs[0..($xs.Length - 2)]
-								        } else {
-										            $xs
-											            }
-												        } else {
-														        $text
-															    }
-}
-
-function Set-Clipboard {
-	    $in = @($input)
-
-	        $out = 
-		        if ($in.Length -eq 1 -and $in[0] -is [string]) { $in[0] }
-			        else { $in | Out-String }
-
-				    [Windows.Forms.Clipboard]::SetText($out);
-}
-
-function GetSet-Clipboard {
-	    param([switch]$SplitLines, [Parameter(ValueFromPipeLine=$true)]$ObjectSet)
-
-	        if ($input) {
-			        $ObjectSet = $input;
-				    }
-
-				        if ($ObjectSet) {
-						        $ObjectSet | Set-Clipboard
-							    } else {
-								            Get-Clipboard -SplitLines:$SplitLines
-									        }
-}
-
-Set-Alias cb GetSet-Clipboard
 Set-Alias -Name ls -Value PowerLS -Option AllScope
 #Export-ModuleMember -Function *-* -Alias *
 set-alias sz "$env:ProgramFiles\7-Zip\7z.exe"
