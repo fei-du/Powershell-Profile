@@ -1,7 +1,7 @@
 #Persistent
 #SingleInstance force
 ^m::Send, Wxdf201611{Enter}
-#n::Run, Notepad
+#n::Run, powershell.exe -command "& {google}" -windowstyle Hidden
 
 #t::Run, C:\Users\b41395\Documents\ConEmuPack.160111\ConEmu64.exe
 RControl & RShift::AltTab  ; Hold down right-control then press right-shift repeatedly to move forward.
