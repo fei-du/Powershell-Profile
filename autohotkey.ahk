@@ -1,6 +1,6 @@
 #Persistent
 #SingleInstance force
-^m::Send, Wxdf201611{Enter}
+^m::Send, Df201613{Enter}
 #n::Run, powershell.exe -command "& {google}" -windowstyle Hidden
 
 #t::Run, C:\Users\b41395\Documents\ConEmuPack.160111\ConEmu64.exe
@@ -23,7 +23,7 @@ a = %A_eventinfo%
 if (a = 2)
 {
 	send {lcontrol down}c{lcontrol up}
-	Sleep 1000
+	Sleep 100
 	Send {LControl down}``{LControl up}
 	send gps SnippingTool -ErrorAction SilentlyContinue | spps {Enter}
 	Send {LControl down}``{LControl up}
