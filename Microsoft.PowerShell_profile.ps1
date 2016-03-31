@@ -3,19 +3,12 @@ function set-profile {
     ise $profile
 }
 
-function cpass6ull{
-start 'http://compass.freescale.net/livelink/livelink?func=ll&objId=234616371&objAction=browse&viewType=1'
-}
-
 function mad{
 start 'http://compass.freescale.net/livelink/livelink?func=ll&objId=194994268&objAction=browse&sort=name'
 }
 
 function compassultra{
  start 'http://compass.freescale.net/livelink/livelink?func=ll&objId=234218038&objAction=browse&sort=name'
-}
-function ip {
-	ipconfig | select-string "Address"	
 }
 
 # using autohotkey to speed up
@@ -24,19 +17,7 @@ C:\Users\b41395\Documents\WindowsPowerShell\autohotkey.ahk
 function get-trans($transid){
 C:\Users\b41395\Downloads\WindowsTrans\trans.exe -g $transid
 }
-function mt256 {
-    Set-Location C:\Users\b41395\D\Denny\BACES\Project\MT256
-}
 
-function ma512 {
-    Set-Location C:\Users\b41395\D\Denny\BACES\Project\MA512
-}
-function ie{
-&"C:\Program Files\Internet Explorer\iexplore.exe" "www.google.com"
-}
-function ..{
-    cd ..
-}
 function birthday{
 [datetime]'06/03/2016' - (Get-Date)
 }
@@ -114,7 +95,6 @@ Add-Type -AssemblyName System.Windows.Forms
 
 Set-Alias -Name ls -Value PowerLS -Option AllScope
 #Export-ModuleMember -Function *-* -Alias *
-set-alias sz "$env:ProgramFiles\7-Zip\7z.exe"
 
 
 #New-PSDrive -Name kl80 -PSProvider FileSystem -Root "C:\Users\b41395\D\Denny\BACES\Project\K80_256\IDD\KL80" | Out-Null
