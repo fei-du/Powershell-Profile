@@ -18,6 +18,9 @@ function ip {
 	ipconfig | select-string "Address"	
 }
 
+# using autohotkey to speed up
+C:\Users\b41395\Documents\WindowsPowerShell\autohotkey.ahk
+
 function get-trans($transid){
 C:\Users\b41395\Downloads\WindowsTrans\trans.exe -g $transid
 }
@@ -58,6 +61,17 @@ function bing($search){
 "http://cn.bing.com/search?q=$search&go=Submit&qs=n&form=QBLH&pq=svn&sc=8-3&sp=-1&sk=&cvid=6241CF63D8FE4E5B96CFC198F441AC4E"
 }
 
+$credentials = Get-Credential
+$Session = New-SFTPSession -ComputerName "lvd5192.ap.freescale.net" -Credential $credentials
+function update-elf{
+$localpath = "C:\TEMP\test"
+Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ul/design/workarea/b41395/T3_1.8/validation/vectors/gpiotest/stimulus/gpiotest.c" -LocalPath $localpath
+Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ul/design/workarea/b41395/T3_1.8/validation/vectors/gpiotest/stimulus/gpiotest.elf" -LocalPath $localpath
+Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ul/design/workarea/b41395/T3_1.8/validation/vectors/gpiotest/stimulus/gpiotest.elf.hex" -LocalPath $localpath
+Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ul/design/workarea/b41395/T3_1.8/validation/vectors/gpiotest/stimulus/gpiotest.lst_lnk" -LocalPath $localpath
+Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ul/design/workarea/b41395/T3_1.8/validation/vectors/gpiotest/stimulus/gpiotest.map" -LocalPath $localpath
+}
+
 function sdhc-write($transid){
     Set-Location C:\Users\b41395\Downloads\WindowsTrans\repo
     if ([string]$transid.length -eq 9){
@@ -93,8 +107,6 @@ function stop-app{
 function get-com5{
 C:\Users\b41395\Downloads\putty.exe -new_console:s -load "COM5"
 }
-# using autohotkey to speed up
-C:\Users\b41395\Documents\WindowsPowerShell\autohotkey.ahk
 
 
 Add-Type -AssemblyName System.Windows.Forms
