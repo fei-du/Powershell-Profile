@@ -11,6 +11,7 @@ RControl & Enter::ShiftAltTab  ; Without even having to release right-control, p
 	Send, %A_IPAddress1%
 return
 ::6ul::/proj/imx6ul/design/workarea/b41395/
+::6ull::/proj/imx6ull/design/workarea/b41395/
 ::wapp::write-app
 ::wubt::sdhc-write
 ::@wy::wanyuan.yu@nxp.com

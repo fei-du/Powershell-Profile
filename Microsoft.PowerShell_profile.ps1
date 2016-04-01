@@ -53,6 +53,15 @@ Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ul/design/workarea/b41
 Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ul/design/workarea/b41395/T3_1.8/validation/vectors/gpiotest/stimulus/gpiotest.map" -LocalPath $localpath
 }
 
+function get-exe{
+pwd
+$localpath = pwd
+Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ull/design/workarea/b41395/IMX6ULL_S312/validation/vectors/osc_internal/stimulus/imx6ull_osc_internal_osc_internal.exe" -LocalPath $localpath -Overwrite
+.\imx6ull_osc_internal_osc_internal.exe -new_console:s
+}
+
+Start-Transcript .\console.txt -Append
+
 function sdhc-write($transid){
     Set-Location C:\Users\b41395\Downloads\WindowsTrans\repo
     if ([string]$transid.length -eq 9){
