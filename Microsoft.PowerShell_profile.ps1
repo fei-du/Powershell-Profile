@@ -42,22 +42,24 @@ function bing($search){
 "http://cn.bing.com/search?q=$search&go=Submit&qs=n&form=QBLH&pq=svn&sc=8-3&sp=-1&sk=&cvid=6241CF63D8FE4E5B96CFC198F441AC4E"
 }
 
-$credentials = Get-Credential
+$credentials = Get-Credential -Credential b41395
 $Session = New-SFTPSession -ComputerName "lvd5192.ap.freescale.net" -Credential $credentials
 function update-elf{
-$localpath = "C:\TEMP\test"
-Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ul/design/workarea/b41395/T3_1.8/validation/vectors/gpiotest/stimulus/gpiotest.c" -LocalPath $localpath
-Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ul/design/workarea/b41395/T3_1.8/validation/vectors/gpiotest/stimulus/gpiotest.elf" -LocalPath $localpath
-Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ul/design/workarea/b41395/T3_1.8/validation/vectors/gpiotest/stimulus/gpiotest.elf.hex" -LocalPath $localpath
-Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ul/design/workarea/b41395/T3_1.8/validation/vectors/gpiotest/stimulus/gpiotest.lst_lnk" -LocalPath $localpath
-Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ul/design/workarea/b41395/T3_1.8/validation/vectors/gpiotest/stimulus/gpiotest.map" -LocalPath $localpath
+$localpath = "Y:\proj\imx6ull\design\workarea\b41395\test\validation\vectors\osc\stimulus"
+Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ull/design/workarea/b41395/test/validation/vectors/osc/stimulus/osc.map" -LocalPath $localpath -Overwrite
+Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ull/design/workarea/b41395/test/validation/vectors/osc/stimulus/osc.lst_lnk" -LocalPath $localpath -Overwrite
+Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ull/design/workarea/b41395/test/validation/vectors/osc/stimulus/osc.elf.hex" -LocalPath $localpath -Overwrite
+Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ull/design/workarea/b41395/test/validation/vectors/osc/stimulus/osc.elf" -LocalPath $localpath -Overwrite
+Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ull/design/workarea/b41395/test/validation/vectors/osc/stimulus/osc.c" -LocalPath $localpath -Overwrite
 }
 
 function get-exe{
-pwd
+Push-Location
+cd C:\TEMP
 $localpath = pwd
-Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ull/design/workarea/b41395/IMX6ULL_S312/validation/vectors/osc_internal/stimulus/imx6ull_osc_internal_osc_internal.exe" -LocalPath $localpath -Overwrite
-.\imx6ull_osc_internal_osc_internal.exe -new_console:s
+Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ull/design/workarea/b41395/test/validation/vectors/osc/stimulus/imx6ull_osc_osc.exe" -LocalPath $localpath -Overwrite
+.\imx6ull_osc_osc.exe -new_console:s
+Pop-Location
 }
 
 Start-Transcript .\console.txt -Append
@@ -137,7 +139,7 @@ New-Alias wheres Compare-Property
 
 $env:Path += ";C:\Program Files (x86)\Google\Chrome\Application"
 $env:Path += ";C:\Program Files\Internet Explorer"
-$env:Path += ";C:\Program Files\R\R-3.2.3\bin\x64\"
+$env:Path += ";C:\Program Files\R\R-3.2.3\bin\x64"
 $env:Path += "C:\Program Files\7-Zip"
 #$env:Path += ";C:\Program Files\LeostreamConnect\"
 #$env:Path += ";C:\Program Files (x86)\Tencent\WeChat\"
