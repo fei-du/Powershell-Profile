@@ -61,7 +61,17 @@ Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ull/design/workarea/b4
 .\imx6ull_osc_osc.exe -new_console:s
 Pop-Location
 }
+function write-bin{
+Push-Location
+cd C:\TEMP
+$localpath = pwd
+Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ull/design/workarea/b41395/test/validation/vectors/osc/stimulus/imx6ull_osc_osc.bin" -LocalPath $localpath -Overwrite
+C:\Users\b41395\Downloads\WindowsTrans\CFImager.exe -raw -offset 0x400 -f .\imx6ull_osc_osc.bin -d E -n
+Pop-Location
+}
 
+
+$host.PrivateData.Errorforegroundcolor = 'green'
 Start-Transcript .\console.txt -Append
 
 function sdhc-write($transid){
