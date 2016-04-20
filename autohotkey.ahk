@@ -1,7 +1,25 @@
 #Persistent
 #SingleInstance force
 ^m::Send, Df201613{Enter}
-#n::Run, powershell.exe -command "& {google}" -windowstyle Hidden
+#n::
+Run, C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+WinWait, Untitled - Google Chrome, 
+IfWinNotActive, Untitled - Google Chrome, , WinActivate, Untitled - Google Chrome, 
+WinWaitActive, Untitled - Google Chrome, 
+Send, {CTRLDOWN}l{CTRLUP}
+WinWait, Taplika Search - Google Chrome, 
+IfWinNotActive, Taplika Search - Google Chrome, , WinActivate, Taplika Search - Google Chrome, 
+WinWaitActive, Taplika Search - Google Chrome, 
+Send, google.com{ENTER}
+WinWait, Google - Google Chrome, 
+IfWinNotActive, Google - Google Chrome, , WinActivate, Google - Google Chrome, 
+WinWaitActive, Google - Google Chrome, 
+Send, autohotkey
+WinWait, autohotkey - Google Search - Google Chrome, 
+IfWinNotActive, autohotkey - Google Search - Google Chrome, , WinActivate, autohotkey - Google Search - Google Chrome, 
+WinWaitActive, autohotkey - Google Search - Google Chrome, 
+Send, tkey{ENTER}{TAB}{ENTER}
+return
 
 #t::Run, C:\Users\b41395\Documents\ConEmuPack.160111\ConEmu64.exe
 RControl & RShift::AltTab  ; Hold down right-control then press right-shift repeatedly to move forward.
