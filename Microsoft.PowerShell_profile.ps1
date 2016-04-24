@@ -70,6 +70,60 @@ C:\Users\b41395\Downloads\WindowsTrans\CFImager.exe -raw -offset 0x400 -f .\imx6
 Pop-Location
 }
 
+function Out-Default
+{
+    [CmdletBinding(confirmimpact="medium")]
+    param(
+        [parameter(ValueFromPipeline=$true)]
+        [System.Management.Automation.PSObject] $inputobject
+    )
+
+    begin
+    {
+        $wrappedcmdlet = $ExecutionContext.InvokeCommand.GetCmdlet("Out-Default")
+        $sb = {& $wrappedcmdlet @PSBoundParameters}
+        $__sp = $sb.GetSteppablePipeline()
+        $__sp.Begin($PSCmdlet)
+    }
+
+    process
+    {
+        $do_process = $true
+        if ($_ -is [System.Management.Automation.ErrorRecord])
+        {
+            if ($_.exception -is [System.Management.Automation.CommandNotFoundException])
+            {
+                $__command = $_.exception.commandname
+                if (test-path -Path $__command -PathType Container)
+                {
+                    Set-Location $__command
+                    $do_process = $false
+                }
+                elseif ( $__command -match '^http://|\.(com|org|net|edu)$')
+                {
+                 if ($Matches[0] -ne "http://")
+                    {
+                        $__command = "HTTP://" + $__command
+                    }
+                [System.Diagnostics.Process]::Start($__command)
+                $do_process = $false
+                }
+            }
+        }
+        
+        if ($do_process)
+        {
+            $Global:last = $_;
+            $__sp.Process($_)
+        }
+
+    }
+    end
+    {
+        $__sp.end()
+    }
+}
+
 
 $host.PrivateData.Errorforegroundcolor = 'green'
 Start-Transcript .\console.txt -Append
