@@ -7,6 +7,10 @@ function mad{
 start 'http://compass.freescale.net/livelink/livelink?func=ll&objId=194994268&objAction=browse&sort=name'
 }
 
+function baceshome{
+start 'https://nxp1.sharepoint.com/sites/MCUops/baces/SitePages/Home.aspx'
+}
+
 function compassultra{
  start 'http://compass.freescale.net/livelink/livelink?func=ll&objId=234218038&objAction=browse&sort=name'
 }
@@ -34,6 +38,9 @@ function stackoverflow($search) {
 start "http://stackoverflow.com/search?q=$search"
 }
 
+function pwdclip(){
+(pwd).Path | clip
+}
 
 function baidu($search){
 start "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=$search&rsv_pq=dd3d27a9005ae8b1&rsv_t=b3c43wiJzwoT02u%2Fo%2FB0RgW7Yn0nGHXqzcW35zirhzf6dYUH8e6tTwFQ4JY&rsv_enter=1&rsv_sug3=7&rsv_sug1=4&rsv_sug7=100"
@@ -66,7 +73,7 @@ Push-Location
 cd C:\TEMP
 $localpath = pwd
 Get-SFTPFile -SFTPSession $Session -RemoteFile "/proj/imx6ull/design/workarea/b41395/test/validation/vectors/osc/stimulus/imx6ull_osc_osc.bin" -LocalPath $localpath -Overwrite
-C:\Users\b41395\Downloads\WindowsTrans\CFImager.exe -raw -offset 0x400 -f .\imx6ull_osc_osc.bin -d E -n
+C:\Users\b41395\Downloads\WindowsTrans\CFImager.exe -raw -offset 0x400 -f .\imx6ull_osc_osc.bin -d D -n
 Pop-Location
 }
 
@@ -196,15 +203,13 @@ Set-Alias -Name ls -Value PowerLS -Option AllScope
 
 #$pdf='C:\Program Files (x86)\Adobe\Reader 11.0\Reader\AcroRd32.exe'
 # function Prompt {"Chulk. >"}
-new-alias gh get-help
-new-alias psd pushd
-new-alias ppd popd
 New-Alias wheres Compare-Property
 
 $env:Path += ";C:\Program Files (x86)\Google\Chrome\Application"
 $env:Path += ";C:\Program Files\Internet Explorer"
 $env:Path += ";C:\Program Files\R\R-3.2.3\bin\x64"
 $env:Path += "C:\Program Files\7-Zip"
+$env:Path += "C:\Users\b41395\Downloads\WindowsTrans"
 #$env:Path += ";C:\Program Files\LeostreamConnect\"
 #$env:Path += ";C:\Program Files (x86)\Tencent\WeChat\"
 #$env:Path += ";C:\Program Files (x86)\Vim\vim74\"
@@ -217,4 +222,5 @@ New-DynamicVariable GLOBAL:WindowTitle -Getter { $host.UI.RawUI.WindowTitle} -Se
 # Load Jump-Location profile
 Import-Module 'C:\Users\b41395\Documents\WindowsPowerShell\Modules\Jump.Location\Jump.Location.psd1'
 Import-Module PSColors
-
+Import-Module PowerTab
+Import-Module PSReadLine
