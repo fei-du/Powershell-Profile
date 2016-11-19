@@ -1,14 +1,3 @@
-function baceshome{
-start 'https://nxp1.sharepoint.com/sites/MCUops/baces/SitePages/Home.aspx'
-}
-
-function compassultra{
- start 'http://compass.freescale.net/livelink/livelink?func=ll&objId=234218038&objAction=browse&sort=name'
-}
-function timesheet{
-start 'https://nxp.sciforma.net/sciforma/?ACSREQUESTID=_ecb55570-1049-4b5d-af18-03434f742b42#95403'
-}
-
 # using autohotkey to speed up
 C:\Users\b41395\Documents\WindowsPowerShell\autohotkey.ahk
 
@@ -16,20 +5,12 @@ function get-trans($transid){
 C:\Users\b41395\Downloads\WindowsTrans\trans.exe -g $transid
 }
 
-function birthday{
-[datetime]'06/03/2017' - (Get-Date)
-}
-
-function google($search) {
-start "https://www.google.com/#q=$search"
-}
-
-function youtube($search) {
-start "https://www.youtube.com/results?search_query=$search"
-}
+#function birthday{
+#[datetime]'06/03/2017' - (Get-Date)
+#}
 
 
-function pwdcp(){
+function dp(){
 (pwd).Path | clip
 }
 
@@ -109,11 +90,10 @@ Add-Type -AssemblyName System.Windows.Forms
 
 Set-Alias -Name zip -Value Compress-Archive
 Set-Alias -Name unzip -Value Expand-Archive
+Set-Alias -Name ocom -Value open-com
+Set-Alias -Name g -Value git
 #Set-Alias -Name ls -Value PowerLS -Option AllScope
 #Export-ModuleMember -Function *-* -Alias *
-
-
-New-Alias wheres Compare-Property
 
 $env:Path += ";C:\Users\b41395\myexe\ctags58"
 $env:Path += ";C:\Program Files\R\R-3.2.3\bin\x64"
@@ -127,7 +107,7 @@ New-DynamicVariable GLOBAL:WindowTitle -Getter { $host.UI.RawUI.WindowTitle} -Se
 . 'C:\Users\b41395\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1'
 
 
-Load Jump-Location profile
+#Load Jump-Location profile
 Import-Module 'C:\Users\b41395\Documents\WindowsPowerShell\Modules\Jump.Location\Jump.Location.psd1'
 Import-Module PowerTab
 Import-Module PSReadLine
@@ -206,8 +186,6 @@ Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 Set-PSReadlineKeyHandler -Key PageUp -Function ScrollDisplayUp
 Set-PSReadlineKeyHandler -Key PageDown -Function ScrollDisplayDown
 Set-PSReadlineKeyHandler -Key Ctrl+[ -Function ViCommandMode
-
-Remove-Module powershellcookbook
 
 $r ='C:\Program Files\R\R-3.3.1\bin\R.exe'
 
