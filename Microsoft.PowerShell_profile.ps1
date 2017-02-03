@@ -128,8 +128,6 @@ Set-PSReadlineKeyHandler -Key PageUp -Function ScrollDisplayUp
 Set-PSReadlineKeyHandler -Key PageDown -Function ScrollDisplayDown
 Set-PSReadlineKeyHandler -Key Ctrl+[ -Function ViCommandMode
 
-$r ='C:\Program Files\R\R-3.3.1\bin\R.exe'
-
 function slexe{
 gci -Path C:\Users\b41395\proj\ssl\try_env\build\B41395\imx6sll *exe -Recurse | sort lastwritetime -Descending | select -First 1 | ii 
 }
@@ -171,3 +169,7 @@ function Set-LocationTo {
 }            
             
 Set-Alias -Name jj -Value Set-LocationTo
+Set-Alias -Name v -Value vim
+Set-Alias -Name n -Value node
+$GitPromptSettings.RepositoriesInWhichToDisableFileStatus += 'C:\Users\b41395\code\code_ultra'
+$GitPromptSettings.RepositoriesInWhichToDisableFileStatus += 'C:\Users\b41395\learning\js\node\express\practicalnode'
