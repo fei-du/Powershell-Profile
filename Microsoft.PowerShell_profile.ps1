@@ -30,7 +30,6 @@ Add-Type -AssemblyName System.Windows.Forms
 
 Set-Alias -Name zip -Value Compress-Archive
 Set-Alias -Name unzip -Value Expand-Archive
-Set-Alias -Name oc -Value open-com
 Set-Alias -Name g -Value git
 #Set-Alias -Name ls -Value PowerLS -Option AllScope
 #Export-ModuleMember -Function *-* -Alias *
@@ -237,8 +236,18 @@ Set-PSReadlineKeyHandler -key Ctrl+g -briefDescription "generate ctags file in c
     write-host "tags generated"
 }
 
+Set-PSReadlineKeyHandler -key Ctrl+k -briefDescription "fzf kill process" -ScriptBlock {
+    fkill
+}
+
 Set-PSReadlineKeyHandler -key Ctrl+i -briefDescription "file explorer pwd" -ScriptBlock {
     ii .
+}
+
+Set-PSReadlineOption -AddToHistoryHandler {
+    param([string]$line)
+    # Do not save any command line unless it has more than 3 characters.  Prevents storing gci, gps, etc.
+    return $line.Length -gt 4
 }
 
 function jr
