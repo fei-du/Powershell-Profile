@@ -42,6 +42,8 @@ $env:Path += "C:\Users\b41395\Downloads\WindowsTrans"
 $env:Path += ";C:\Program Files (x86)\SEGGER\JLink_V502d"
 $env:Path += ";C:\Users\b41395\myexe\phantomjs-2.1.1-windows\bin"
 $env:Path += ";C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin"
+$env:Path += ";C:\Program Files\ImageMagick-7.0.6-Q16"
+$env:Path += ";C:\Program Files\PuTTY"
 #Enable-HistoryPersistence
 New-autovariable GLOBAL:WindowTitle -Getter { $host.UI.RawUI.WindowTitle} -Setter {$host.ui.RawUI.WindowTitle = $args[0]}
 # Load posh-git example profile
@@ -60,7 +62,16 @@ Set-PSReadlineOption -EditMode vi
 # needing to type cd and won't change the command line.
 
 #
+
+push-location .
+cd C:\nxp\SDK_2.0.0_K32H844P_ER3\boards\evk_k32h844p\usb_examples
+$usb = $pwd
+Pop-location
+
+$clk = "C:\Users\b41395\learning\ps\code\misc\clockWidget.ps1"
+
 $global:PSReadlineMarks = @{}
+
 
 Set-PSReadlineKeyHandler -Key Ctrl+Shift+j `
                          -BriefDescription MarkDirectory `
@@ -121,6 +132,26 @@ Set-PSReadlineKeyHandler -Chord 'Oem7','Shift+Oem7' `
         [Microsoft.PowerShell.PSConsoleReadline]::SetCursorPosition($cursor - 1)
     }
 }
+
+Set-PSReadlineKeyHandler -Key Ctrl+H `
+			    -BriefDescription GoToParentDirectory `
+			    -Description "Go To Parent Directory" -ScriptBlock {
+
+    param($key, $arg)
+    $parentDir = (Get-Item $pwd).Parent
+    cd $parentDir.FullName
+    [Microsoft.PowerShell.PSConsoleReadline]::InvokePrompt()
+}
+
+Set-PSReadlineKeyHandler -Key "Alt+l" `
+                         -BriefDescription ListDirectory `
+                         -LongDescription "List the current directory" `
+                         -ScriptBlock {
+    [Microsoft.PowerShell.PSConsoleReadline]::RevertLine()
+    [Microsoft.PowerShell.PSConsoleReadline]::Insert("ls")
+    [Microsoft.PowerShell.PSConsoleReadline]::AcceptLine()
+}
+
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd 
 Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
@@ -215,11 +246,19 @@ $Host.UI.RawUI.CursorSize =100
 $rscript = 'C:\Program Files\R\R-3.3.1\bin\Rscript.exe'
 
 Set-PSReadlineKeyHandler -key Ctrl+p -briefDescription "copy pwd to system clipboard" -ScriptBlock {
-(pwd).Path | clip
+(pwd).providerpath | clip
 }
 
 Set-PSReadlineKeyHandler -key Ctrl+o -briefDescription "open putty" -ScriptBlock {
-C:\Users\b41395\Downloads\putty.exe  -new_console:s40H
+putty.exe  -new_console:s40H
+}
+
+Set-PSReadlineKeyHandler -key Ctrl+b -briefDescription "git bash vertical slipt conemu" -ScriptBlock {
+ & 'C:\Program Files\Git\bin\sh.exe' -new_console:s10V
+}
+
+Set-PSReadlineKeyHandler -key Ctrl+Shift+b -briefDescription "git bash Horizontal slipt conemu" -ScriptBlock {
+ & 'C:\Program Files\Git\bin\sh.exe' -new_console:sH
 }
 
 Set-PSReadlineKeyHandler -key Ctrl+s -briefDescription "vertical slipt conemu" -ScriptBlock {
@@ -253,4 +292,117 @@ Set-PSReadlineOption -AddToHistoryHandler {
 function jr
 {
     jlink.exe "C:\Users\b41395\r.jlk"
+}
+
+set-executionpolicy -executionpolicy remotesigned
+
+# thefuck app is currently not working
+# iex "$(thefuck --alias)"
+
+$PSDefaultParameterValues += @{'Get-Help:ShowWindow' = $true}
+$PSDefaultParameterValues += @{'Get-History:Count'   = 10}
+$PSDefaultParameterValues += @{'invoke-command:computername'   = "b18258-05"}
+
+New-Variable -Name MyDocuments -Value ([environment]::GetFolderPath("mydocuments"))
+
+function get-rss{
+    ([xml](New-Object net.webclient).DownloadString(
+						    "http://blogs.msdn.com/powershell/rss.aspx"
+						   )).rss.channel.item | Format-Table title,link
+}
+
+function set-title{
+    $Host.UI.RawUI.WindowTitle = "$args"
+    }
+
+Set-Alias -Name st -Value set-title
+
+new-psdrive -Name dc -PSProvider FileSystem -Root (resolve-path ~/*documents) | out-null
+new-psdrive -Name dl -PSProvider FileSystem -Root (resolve-path ~/downloads) | out-null
+new-psdrive -Name T -PSProvider FileSystem -Root (resolve-path c:/TEMP) | out-null
+
+function nm($file, [switch]$v){
+	$ex = gci $file | select -ExpandProperty extension
+	if($v){
+	    $split = '-new_console:s40V'
+	} else{
+	    $split = '-new_console:s40H'
+	}
+	switch($ex){
+		".ps1" {
+		    nodemon $split --exec 'C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile' $file   --ext ps1
+		    break
+		    }
+		".R"{
+		    # somehow not working when updating node from v6 to v8
+
+		    $env:Path += ";C:\Program Files\R\R-3.4.0\bin\"
+		    nodemon $split --exec 'Rscript.exe' $file   --ext R
+		    break
+		    }
+		".py"{
+		    nodemon $split --exec 'python' $file   --ext py
+		    break
+		}
+		".jlk"{
+		    nodemon $split --exec 'jlink' $file   --ext jlk
+		    break
+		    }
+		".js"{
+			nodemon $split $file
+		    }
+		default {"not supported yet"}
+	    }
+}
+
+
+function c2h($file){
+    C:\Users\b41395\learning\ps\code\html\csv2html.ps1 $file
+    }
+
+# Chocolatey profile
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
+
+function save-jumps ( $file)
+{
+    pushd C:\Users\b41395\j
+    $global:PSReadlineMarks | Export-Clixml $file
+    popd
+}
+
+function load-jumps( $file)
+{
+    pushd C:\Users\b41395\j
+    if ($file -eq $null) {
+        # if not provided, load data of last time
+        $global:PSReadlineMarks = Import-Clixml (Get-ChildItem | Sort-Object lastaccesstime -Descending | Select-Object -First 1)
+    } elseif (Test-Path $file){
+        $global:PSReadlineMarks = Import-Clixml $file
+        # make current data the lastest
+        touch $file
+    } else{
+    "file does not exit!"
+    }
+    popd
+}
+
+Set-Alias -Name sj -Value save-jumps
+Set-Alias -Name lj -Value load-jumps
+Set-Alias -Name np -Value notepad
+$h = "-new_console:sH"
+$v = "-new_console:sV"
+
+function Get-weather {
+    param(
+    # the city name for the weather
+    [Parameter(ValueFromPipeline=$true)]
+    [string]
+    $City = "tianjin"
+    )
+    process{
+    (Invoke-WebRequest "http://wttr.in/$City" -UserAgent curl).content -split "`n" | Select-Object -First 7
+    }
 }
